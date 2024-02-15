@@ -16,6 +16,12 @@ cache.setItem('key', 'value')
 cache.getItem('key')
 ```
 
+for Deno
+
+```typescript
+import { SieveCache} from "https://deno.land/x/sieve/mod.ts"
+```
+
 ## Dev
 
 ```sh
