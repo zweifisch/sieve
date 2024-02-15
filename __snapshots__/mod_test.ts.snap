@@ -1,0 +1,13 @@
+export const snapshot = {};
+
+snapshot[`should evict 1`] = `
+[32m"[ ] C
+[ ] B
+[ ] A"[39m
+`;
+
+snapshot[`should evict 2`] = `
+[32m"[ ] D
+[ ] C
+[ ] B"[39m
+`;
