@@ -6,7 +6,7 @@ a simple yet efficient cache, [original introduction](https://cachemon.github.io
 
 ## Usage
 
-install via npm: `npm install @zf/sieve`
+for Node.js install via npm: `npm install @zf/sieve`
 
 ```typescript
 import { SieveCache } from '@zf/sieve'
