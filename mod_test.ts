@@ -1,7 +1,4 @@
 import {
-  assertSnapshot,
-} from "https://deno.land/std@0.216.0/testing/snapshot.ts";
-import {
   assertEquals,
 } from "https://deno.land/std@0.216.0/testing/asserts.ts"
 import { SieveCache } from "./mod.ts"
@@ -14,14 +11,27 @@ Deno.test("should evict", async (t) => {
   cache.setItem('B', 'b')
   cache.setItem('C', 'c')
 
-  await assertSnapshot(t, cache.toString())
+  await assertEquals(cache.toString(), `\
+[ ] C
+[ ] B
+[ ] A`)
 
   cache.setItem('D', 'd')
+  await assertEquals(cache.toString(), `\
+[ ] D
+[ ] C
+[ ] B`)
 
-  await assertSnapshot(t, cache.toString())
+  cache.getItem('B')
+  await assertEquals(cache.toString(), `\
+[ ] D
+[ ] C
+[X] B`)
 
-  // cache.getItem('B')
-  // cache.setItem('E', 'e')
-
+  cache.setItem('E', 'e')
+  await assertEquals(cache.toString(), `\
+[ ] E
+[ ] D
+[ ] B`)
 
 })
