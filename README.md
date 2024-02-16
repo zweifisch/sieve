@@ -22,6 +22,13 @@ for Deno
 import { SieveCache} from "https://deno.land/x/sieve/mod.ts"
 ```
 
+## Benchmark
+
+[benchmark](/benchmark.ts) reading 1 million normally distributed items through a cache with a capacity of 100 compared with LRU,
+it is more performant:
+
+![chart](/chart.png)
+
 ## Dev
 
 ```sh
