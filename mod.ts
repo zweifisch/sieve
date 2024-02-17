@@ -15,7 +15,6 @@ export class SieveCache<T, U = string> {
   head?: Node<T, U>
   tail?: Node<T, U>
   hand?: Node<T, U>
-  size = 0
 
   constructor(capacity: number) {
     this.capacity = capacity
@@ -55,16 +54,14 @@ export class SieveCache<T, U = string> {
       this.hand = node.prev
       this.cache.delete(node.key)
       this.removeNode(node)
-      this.size -= 1
     }
   }
 
   set(key: U, value: T) {
     if (this.cache.has(key)) {
       this.removeNode(this.cache.get(key)!)
-      this.size -= 1
     }
-    if (this.size === this.capacity) {
+    if (this.cache.size >= this.capacity) {
       this.evict()
     }
     const newNode = {
@@ -74,7 +71,6 @@ export class SieveCache<T, U = string> {
     }
     this.addToHead(newNode)
     this.cache.set(key, newNode)
-    this.size += 1
   }
 
   get(key: U) {
