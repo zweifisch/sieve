@@ -1,3 +1,4 @@
+export { LRUCache } from './lru.ts'
 
 interface Node<T, U> {
   key: U
@@ -58,7 +59,7 @@ export class SieveCache<T, U = string> {
     }
   }
 
-  setItem(key: U, value: T) {
+  set(key: U, value: T) {
     if (this.cache.has(key)) {
       this.removeNode(this.cache.get(key)!)
       this.size -= 1
@@ -76,7 +77,7 @@ export class SieveCache<T, U = string> {
     this.size += 1
   }
 
-  getItem(key: U) {
+  get(key: U) {
     if (this.cache.has(key)) {
       const node = this.cache.get(key)!
       node.visited = true

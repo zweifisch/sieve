@@ -12,8 +12,8 @@ for Node.js install via npm: `npm install @zf/sieve`
 import { SieveCache } from '@zf/sieve'
 
 const cache = new SieveCache<string>(3 /* capacity */)
-cache.setItem('key', 'value')
-cache.getItem('key')
+cache.set('key', 'value')
+cache.get('key')
 ```
 
 for Deno
@@ -32,7 +32,7 @@ it is more performant:
 ## Dev
 
 ```sh
-deno test --allow-all -- --update
+deno test
 ```
 
 ```sh
