@@ -34,6 +34,9 @@ export class SieveCache<T, U = string> {
   private removeNode(node: Node<T, U>) {
     if (node.prev) {
       node.prev.next = node.next
+      if (this.hand === node) {
+        this.hand = node.prev
+      }
     } else {
       this.head = node.next
     }
@@ -59,7 +62,10 @@ export class SieveCache<T, U = string> {
 
   set(key: U, value: T) {
     if (this.cache.has(key)) {
-      this.removeNode(this.cache.get(key)!)
+      const node = this.cache.get(key)!
+      node.value = value
+      node.visited = true
+      return
     }
     if (this.cache.size >= this.capacity) {
       this.evict()
@@ -85,7 +91,7 @@ export class SieveCache<T, U = string> {
     let ret = []
     let current = this.head
     while (current) {
-      ret.push(`[${current.visited ? 'X' : ' '}] ${current.key}`)
+      ret.push(`${this.hand === current ? '>' : ' '} [${current.visited ? 'X' : ' '}] ${current.key}`)
       current = current.next
     }
     return ret.join('\n')

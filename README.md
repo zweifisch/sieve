@@ -24,14 +24,16 @@ import { SieveCache, LRUCache } from "https://deno.land/x/sieve/mod.ts"
 
 ## Benchmark
 
-[benchmark](/benchmark.ts) reading 1 million normally distributed items through a cache with a capacity of 100 compared with the [LRU](https://deno.land/x/lru@1.0.2) package,
-it is more performant, while the cache hit/miss ratio is similar:
+[Benchmark](/benchmark.ts) reading 1 million normally distributed items through a cache with a capacity of 100 compared with the [LRU](https://deno.land/x/lru@1.0.2) package 
+showing SIEVE is more performant, while the cache hit/miss ratio is about the same:
 
 ![chart](/chart.png)
 
-it seems that the LRU package's implementation is not very efficient, so I wrote my own [LRU](/lru.ts), and it actually better than SIEVE, which is not surprising:
+It turned out that the LRU package's implementation is not very efficient, so I wrote my own [LRU](/lru.ts), and it actually better than SIEVE:
 
 ![chart](/100.png)
+
+Anyway, the cache hit/miss ratio is of much greater importance, and it is determined by the data distribution.
 
 ## Dev
 
