@@ -1,4 +1,4 @@
-# Sieve
+# sieve
 
 a simple yet efficient cache, [original introduction](https://cachemon.github.io/SIEVE-website/blog/2023/12/17/sieve-is-simpler-than-lru/)
 
@@ -6,10 +6,10 @@ a simple yet efficient cache, [original introduction](https://cachemon.github.io
 
 ## Usage
 
-for Node.js install via npm: `npm install @zf/sieve`
+for Node.js, install via npm: `npm install @zf/sieve`
 
 ```typescript
-import { SieveCache } from '@zf/sieve'
+import { SieveCache, LRUCache } from '@zf/sieve'
 
 const cache = new SieveCache<string>(3 /* capacity */)
 cache.set('key', 'value')
@@ -19,15 +19,19 @@ cache.get('key')
 for Deno
 
 ```typescript
-import { SieveCache} from "https://deno.land/x/sieve/mod.ts"
+import { SieveCache, LRUCache } from "https://deno.land/x/sieve/mod.ts"
 ```
 
 ## Benchmark
 
-[benchmark](/benchmark.ts) reading 1 million normally distributed items through a cache with a capacity of 100 compared with LRU,
-it is more performant:
+[benchmark](/benchmark.ts) reading 1 million normally distributed items through a cache with a capacity of 100 compared with the [LRU](https://deno.land/x/lru@1.0.2) package,
+it is more performant, while the cache hit/miss ratio is similar:
 
 ![chart](/chart.png)
+
+it seems that the LRU package's implementation is not very efficient, so I wrote my own [LRU](/lru.ts), and it actually better than SIEVE, which is not surprising:
+
+![chart](/100.png)
 
 ## Dev
 

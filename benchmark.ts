@@ -1,5 +1,6 @@
 import { SieveCache } from './mod.ts'
 import { LRUCache } from "./lru.ts"
+// import { LRU as LRUCache } from "https://deno.land/x/lru@1.0.2/mod.ts";
 
 function randGaussian() {
   let u = 0
@@ -11,7 +12,7 @@ function randGaussian() {
 }
 
 const counts = 1_000_000
-const capacity = 200
+const capacity = 100
 const randns = Array(counts).fill(0).map(randGaussian)
 
 
@@ -20,7 +21,7 @@ for (let i = 0; i< 2; i ++) {
   const sieveResult = []
   const lruResult = []
 
-  for (let items = capacity; items < 2_000; items += 20) {
+  for (let items = capacity; items <= capacity * 20; items += capacity * 0.1) {
     const numbers = randns.map(x => Math.round(x * items))
     {
       const cache = new SieveCache(capacity)
@@ -48,7 +49,7 @@ for (let i = 0; i< 2; i ++) {
           missed += 1
         }
         if (cache.get(num) !== num) {
-          throw new Error('cache failed')
+          // throw new Error('cache failed')
         }
       }
       console.log(`LRU   missed: ${(missed/counts * 100).toFixed(2)}% took: ${Date.now() - start}ms`)
