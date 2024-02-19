@@ -9,7 +9,7 @@ a simple yet efficient cache, [original introduction](https://cachemon.github.io
 for Node.js, install via npm: `npm install @zf/sieve`
 
 ```typescript
-import { SieveCache, LRUCache } from '@zf/sieve'
+import { SieveCache, LRUCache, LFUCache } from '@zf/sieve'
 
 const cache = new SieveCache<string>(3 /* capacity */)
 cache.set('key', 'value')
@@ -19,7 +19,7 @@ cache.get('key')
 for Deno
 
 ```typescript
-import { SieveCache, LRUCache } from "https://deno.land/x/sieve/mod.ts"
+import { SieveCache, LRUCache, LFUCache } from "https://deno.land/x/sieve/mod.ts"
 ```
 
 ## Benchmark
@@ -29,11 +29,16 @@ showing SIEVE is more performant, while the cache hit/miss ratio is about the sa
 
 ![chart](/chart.png)
 
-It turned out that the LRU package's implementation is not very efficient, so I wrote my own [LRU](/lru.ts), and it actually better than SIEVE:
+It turned out that the LRU package's implementation is not very efficient, so I wrote my own [LRU](/lru.ts), and it is actually better than SIEVE:
 
-![chart](/100.png)
+![chart](/lru.png)
 
 Anyway, the cache hit/miss ratio is of much greater importance, and it is determined by the data distribution.
+
+Added [LFU](/lfu.ts), which has the best hit rate for normally distributed data:
+
+![chart](lfu.png)
+
 
 ## Dev
 
