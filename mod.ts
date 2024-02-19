@@ -1,4 +1,5 @@
 export { LRUCache } from './lru.ts'
+export { LFUCache } from './lfu.ts'
 
 interface Node<T, U> {
   key: U
